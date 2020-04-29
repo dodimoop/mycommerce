@@ -116,7 +116,6 @@ const Home = ({ history }) => {
               <FavoriteBorderOutlinedIcon
                 fontSize="large"
                 className={classes.whislistIcon}
-                onClick={() => history.push('wishlist')}
               />
               <TextField
                 placeholder="Search here..."
@@ -205,7 +204,10 @@ const Home = ({ history }) => {
             <BottomNavigationAction label="Home" />
             <BottomNavigationAction label="Feed" />
             <BottomNavigationAction label="Cart" />
-            <BottomNavigationAction label="Profile" />
+            <BottomNavigationAction
+              label="Profile"
+              onClick={() => history.push('/purchased')}
+            />
           </BottomNavigation>
         </>
       )}
