@@ -1,33 +1,21 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
-import Link from '@material-ui/core/Link'
-import ProTip from './ProTip'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import PrivateRoute from './hocs/auth'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+import Login from './Pages/Login'
+import Homepage from './Pages/Home'
+import ProductDetail from './Pages/Details'
 
-export default function App() {
+export default () => {
   return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Create React App v4-beta example
-        </Typography>
-        <ProTip />
-        <Copyright />
-      </Box>
-    </Container>
+    <>
+      <Switch>
+        <Route path="/login" exact component={Login} />
+        <PrivateRoute path="/" exact component={Homepage} />
+        <PrivateRoute path="/detail/:id" exact component={ProductDetail} />
+
+        <Redirect to="/" />
+      </Switch>
+    </>
   )
 }
