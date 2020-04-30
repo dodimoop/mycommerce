@@ -14,4 +14,5 @@
 - Add Logout Feature
 - I tried to use now.sh but they don't support Google Login and Facebook Login (this is the link mycommerce.now.sh)
 
-- Thank you :)
+
+Thank you :)
