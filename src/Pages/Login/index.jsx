@@ -140,7 +140,7 @@ const Login = ({ history }) => {
         onClose={() => setPopup(false)}
         open={popup}
         autoHideDuration={2000}
-        message="Please check your Username and Password!"
+        message="Username and Password must be filled!"
       />
     </Container>
   )
