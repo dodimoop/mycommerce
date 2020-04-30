@@ -11,6 +11,17 @@ const products = (state = [], { type, payload }) => {
   }
 }
 
+const categories = (state = [], { type, payload }) => {
+  switch (type) {
+    case 'UPDATE_CATEGORIES':
+      return payload
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
-  products
+  products,
+  categories
 })
