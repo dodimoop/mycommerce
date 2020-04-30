@@ -12,7 +12,7 @@
 - Product filters do not use the new page but instead change directly to the product list
 - Add Wishlist Feature
 - Add Logout Feature
-- I tried to use now.sh but they don't support Google Login and Facebook Login (this is the link mycommerce.now.sh)
+- I tried to use now.sh but they don't support Google Login and Facebook Login (this is the link https://mycommerce.now.sh/)
 
 
 Thank you :)
