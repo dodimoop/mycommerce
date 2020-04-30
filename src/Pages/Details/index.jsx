@@ -112,9 +112,9 @@ const Product = ({ match, history }) => {
             <Typography paragraph>{product.description}</Typography>
 
             <Button
-              variant="contained"
+              variant={product.purchased ? 'outlined' : 'contained'}
               disableElevation
-              color="primary"
+              color="secondary"
               fullWidth
               onClick={onClickBuy}
               disabled={product.purchased}
