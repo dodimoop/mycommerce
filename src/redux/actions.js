@@ -6,3 +6,10 @@ export const updateProduct = payload => {
     payload
   }
 }
+
+export const updateCategories = payload => {
+  return {
+    type: 'UPDATE_CATEGORIES',
+    payload
+  }
+}
