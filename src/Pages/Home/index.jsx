@@ -24,7 +24,8 @@ import {
   IconButton,
   BottomNavigation,
   BottomNavigationAction,
-  CircularProgress
+  CircularProgress,
+  Snackbar
 } from '@material-ui/core'
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
@@ -33,7 +34,7 @@ import {
 } from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateProduct } from '../../redux/actions'
+import { updateProduct, updateCategories } from '../../redux/actions'
 
 import Style from './Style'
 
@@ -41,13 +42,15 @@ const Home = ({ history }) => {
   const classes = Style()
   const dispatch = useDispatch()
 
-  const [dataCategory, setDataCategory] = useState([])
-
   const [isFetchingData, setIsFetchingData] = useState(false)
-  const products = useSelector(state => state.products)
+  const { products, categories } = useSelector(state => ({
+    products: state.products,
+    categories: state.categories
+  }))
 
   const [filteredProduct, setFilteredProduct] = useState([])
   const [inputSearchValue, setInputSearchValue] = useState('')
+  const [popup, setPopup] = useState(false)
 
   const [bottomNavbar, setBottomNavbar] = useState(0)
 
@@ -58,7 +61,9 @@ const Home = ({ history }) => {
       const response = await Axios.get(
         'https://private-4639ce-ecommerce56.apiary-mock.com/home'
       )
-      setDataCategory(response.data[0].data.category)
+      // categories
+      dispatch(updateCategories(response.data[0].data.category))
+      // products
       dispatch(
         updateProduct(
           map(response.data[0].data.productPromo, product => ({
@@ -98,6 +103,10 @@ const Home = ({ history }) => {
     dispatch(updateProduct(items))
   }
 
+  const onLogout = () => {
+    setPopup(true)
+  }
+
   return (
     <>
       {isFetchingData ? (
@@ -116,6 +125,7 @@ const Home = ({ history }) => {
               <FavoriteBorderOutlinedIcon
                 fontSize="large"
                 className={classes.whislistIcon}
+                onClick={() => history.push('/wishlisted')}
               />
               <TextField
                 placeholder="Search here..."
@@ -139,7 +149,7 @@ const Home = ({ history }) => {
               cols={4.5}
               cellHeight={100}
             >
-              {dataCategory.map(category => (
+              {categories.map(category => (
                 <GridListTile key={category.id}>
                   <img
                     src={category.imageUrl}
@@ -202,13 +212,27 @@ const Home = ({ history }) => {
             className={classes.bottomNavigationStyle}
           >
             <BottomNavigationAction label="Home" />
-            <BottomNavigationAction label="Feed" />
-            <BottomNavigationAction label="Cart" />
             <BottomNavigationAction
-              label="Profile"
+              label="Purchase History"
               onClick={() => history.push('/purchased')}
             />
+            <BottomNavigationAction label="Logout" onClick={onLogout} />
           </BottomNavigation>
+
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center'
+            }}
+            onClose={() => {
+              setPopup(false)
+              localStorage.clear()
+              history.push('/')
+            }}
+            open={popup}
+            autoHideDuration={1500}
+            message="Hope you comeback, bye :)"
+          />
         </>
       )}
     </>
